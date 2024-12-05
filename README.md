@@ -19,6 +19,6 @@ npm run dev
 
 ### 4.  Access the application
  
-npm run dev](http://localhost:5173
+http://localhost:5173
 
 
