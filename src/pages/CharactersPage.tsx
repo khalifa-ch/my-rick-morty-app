@@ -27,27 +27,25 @@ const CharactersPage: React.FC = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const navigate = useNavigate();
-  const [searchTerm, setSearchTerm] = useState<string>(""); // État pour la recherche
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
-  // Fonction pour récupérer les personnages
   const getCharacters = async () => {
     try {
-      const data = await fetchCharacters(page); // Appel API
-      const limitedCharacters = data.results.slice(0, 10); // Limite à 10 personnages
+      const data = await fetchCharacters(page);
+      const limitedCharacters = data.results.slice(0, 10);
       setCharacters(limitedCharacters);
-      setTotalPages(data.info.pages); // Garde les pages totales
+      setTotalPages(data.info.pages);
     } catch (err) {
       console.error("Failed to fetch characters", err);
     }
   };
 
-  // Fonction pour gérer la recherche
   const handleSearch = async () => {
     try {
-      const data = await fetchCharacters(page, searchTerm); // Inclure `searchTerm`
-      const limitedCharacters = data.results.slice(0, 10); // Limite à 10 personnages
+      const data = await fetchCharacters(page, searchTerm);
+      const limitedCharacters = data.results.slice(0, 10);
       setCharacters(limitedCharacters);
-      setTotalPages(Math.min(data.info.pages, 1)); // Limite les pages totales à 1 pour éviter confusion
+      setTotalPages(Math.min(data.info.pages, 1));
     } catch (err) {
       console.error("Failed to fetch searched characters", err);
     }
@@ -55,7 +53,7 @@ const CharactersPage: React.FC = () => {
 
   useEffect(() => {
     getCharacters();
-  }, [page]); 
+  }, [page]);
 
   const handleCardClick = (id: number) => {
     navigate(`/about/${id}`);
@@ -65,12 +63,11 @@ const CharactersPage: React.FC = () => {
     _event: React.ChangeEvent<unknown>,
     value: number
   ) => {
-    setPage(value); // Met à jour la page courante
+    setPage(value);
   };
 
   return (
     <Box sx={{ padding: "20px" }}>
-      {/* Barre de recherche */}
       <AppBar position="sticky" color="default" sx={{ marginBottom: "20px" }}>
         <Toolbar>
           <TextField
@@ -86,11 +83,10 @@ const CharactersPage: React.FC = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      {/* Titre */}
+      {/* Title */}
       <Typography variant="h4" gutterBottom>
         Characters
       </Typography>
-      {/* Liste des personnages */}
       <Grid container spacing={3}>
         {characters.map((character) => (
           <Grid item xs={12} sm={6} md={4} key={character.id}>
